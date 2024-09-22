@@ -8,7 +8,30 @@ const DE = {
 	exit: "Beenden",
 	play: "Spielen",
 	stats: "Statistiken",
-	matrixIndexInvalid: "Matrixindex ist ungültig."
+	matrixIndexInvalid: "Matrixindex ist ungültig.",
+	
+	win: "Du hast gewonnen!",
+	lose: "Du hast verloren!",
+	pressEnterToContinue: "Drücke Enter, um fortzufahren...",
+	language: "Sprache",
+	english: "Englisch",
+	norwegian: "Norwegisch",
+	german: "Deutsch",
+	spanish: "Spanisch",
+	french: "Französisch",
+	hawaiian: "Hawaiianisch",
+	russian: "Russisch",
+	settings: "Einstellungen",
+	yes: "Ja",
+	no: "Nein",
+	save: "Speichern",
+	cancel: "Abbrechen",
+	difficulty: "Schwierigkeitsgrad",
+	level: "Level",
+	easy: "Einfach",
+	normal: "Normal",
+	hard: "Schwer",
+	score: "Punktestand",
 };
 
 export { DE };

@@ -11,8 +11,11 @@ const EN = {
 	matrixIndexInvalid: "Matrix index is invalid.",
 	
 	// Include the additional language indices below to the other languages.
+	win: "You Win!",
+	lose: "You lost!",
 	pressEnterToContinue: "Press enter to continue...",
 	language: "Language",
+	english: "English",
 	norwegian: "Norwegian",
 	german: "German",
 	spanish: "Spanish",
@@ -22,7 +25,15 @@ const EN = {
 	
 	settings: "Settings",
 	yes: "Yes",
-	no: "No"
+	no: "No",
+	save: "Save",
+	cancel: "Cancel",
+	difficulty: "Dificulty",
+	level: "Level",
+	easy: "Easy",
+	normal: "Normal",
+	hard: "Hard",
+	score: "Score",
 };
 
 export { EN };

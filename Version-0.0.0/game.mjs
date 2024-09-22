@@ -15,6 +15,7 @@ class Game {
 		this.graphics = new Graphics();
 		this.menu = new Menu();
 		this.aiNode = new AiNode(this, AiNode.difficulties.hard);
+		this.gameStats = [];
 	}
 	
 	async mainMenu() {
@@ -40,17 +41,14 @@ class Game {
 	}
 	
 	async playGame() {
-		console.log(ANSI.CLEAR_SCREEN);
-		console.log(this.graphics.toString());
+		this.resetBoard();
 		await this.menu.prompt(LANGUAGE.coordinatePrompt, this.updatePlayerEntry, this);
 		
 		if(this.graphics.hasPlayer1Won) {
-			console.log(ANSI.CLEAR_SCREEN);
-			console.log("You win!");
+			console.log(LANGUAGE.win);
 			await this.menu.prompt(LANGUAGE.pressEnterToContinue, this.mainMenu, this);
 		} else if(this.graphics.hasPlayer2Won) {
-			console.log(ANSI.CLEAR_SCREEN);
-			console.log("You lost!");
+			console.log(LANGUAGE.lose);
 			await this.menu.prompt(LANGUAGE.pressEnterToContinue, this.mainMenu, this);
 		} else {
 			//console.log("Draw!");
@@ -60,20 +58,35 @@ class Game {
 	
 	async updatePlayerEntry(playerResponse) {
 		const resp=Game.parseCoords(playerResponse);
-		const row=resp[0]*1;
-		const col=resp[1]*1;
-		if(!this.aiNode.isOccupied(row, col)) {
-			this.graphics.setPlayer1Position(row, col);
-			this.aiNode.selectLocation();
+		if(resp.length>=2) {
+			let row=Game.withinRange((resp[0]*1) - 1);
+			let col=Game.withinRange((resp[1]*1) - 1);
+			if(!this.aiNode.isOccupied(row, col)) {
+				this.graphics.setPlayer1Position(row, col);
+				this.aiNode.selectLocation();
+			}
 		}
+		this.resetBoard();
+	}
+	
+	resetBoard() {
 		console.log(ANSI.CLEAR_SCREEN);
 		console.log(this.graphics.toString());
-		
 	}
 	
 	async showStats() {
 		console.log(LANGUAGE.showStats);
 		await this.menu.prompt(LANGUAGE.pressEnterToContinue, this.mainMenu, this);
+	}
+	
+	static withinRange(value, min, max) {
+		if(value<min) {
+			value=min;
+		}
+		if(value>max) {
+			value=max;
+		}
+		return value;
 	}
 	
 	static parseCoords(value) {
