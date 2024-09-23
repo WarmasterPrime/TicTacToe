@@ -53,7 +53,6 @@ class AiNode {
 				coords: [[2,0], [2,1], [2,2]],
 				canDo: this.areCoordsFree(2,0, 2,1, 2,2)
 			},
-			
 			leftCol: {
 				coords: [[0,0], [1,0], [2,0]],
 				canDo: this.areCoordsFree(0,0, 1,0, 2,0)
@@ -81,9 +80,6 @@ class AiNode {
 		for([item, value] of Object.entries(dataSet)) {
 			dataSet[item].coords=AiNode.randomizeArray(dataSet[item].coords);
 		}
-		
-		
-		
 		let tmpDataSet = AiNode.randomizeDataSet(dataSet);
 		
 		console.log(tmpDataSet);
