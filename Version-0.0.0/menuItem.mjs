@@ -26,6 +26,7 @@ class MenuItem {
 				maxWidth=line.length;
 			}
 		}
+		
 		if(MenuItem.isOdd(maxWidth)) {
 			maxWidth++;
 		}
@@ -33,14 +34,17 @@ class MenuItem {
 		let numberOfSpacesToCenterTitle = MenuItem.calculateSpacing(this.title, maxWidth);
 		if(MenuItem.isOdd(numberOfSpacesToCenterTitle)) {
 			let regexResult = REGEX_PATTERNS.WORD_SPACE_SEPARATION.exec(this.title);
-			const whitespaceCharCount = regexResult.groups.value.length;
-			if(MenuItem.isOdd(whitespaceCharCount)) {
-				this.title=this.title.replace(REGEX_PATTERNS.WORD_SPACE_SEPARATION, " ".repeat(whitespaceCharCount+1));
-			}
-			numberOfSpacesToCenterTitle = MenuItem.calculateSpacing(this.title, maxWidth);
-			const titleTextLength=this.title.length + numberOfSpacesToCenterTitle;
-			if(maxWidth<titleTextLength) {
-				maxWidth=titleTextLength;
+			if(regexResult) {
+				const whitespaceCharCount = regexResult.groups.value.length;
+				if(MenuItem.isOdd(whitespaceCharCount)) {
+					this.title=this.title.replace(REGEX_PATTERNS.WORD_SPACE_SEPARATION, " ".repeat(whitespaceCharCount+1));
+				}
+				numberOfSpacesToCenterTitle = MenuItem.calculateSpacing(this.title, maxWidth);
+				const titleTextLength=this.title.length + numberOfSpacesToCenterTitle;
+				if(maxWidth<titleTextLength) {
+					maxWidth=titleTextLength;
+				}
+				numberOfSpacesToCenterTitle = MenuItem.calculateSpacing(this.title, maxWidth);
 			}
 		}
 		

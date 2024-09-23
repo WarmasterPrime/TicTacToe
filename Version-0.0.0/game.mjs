@@ -20,7 +20,7 @@ class Game {
 	
 	async mainMenu() {
 		this.graphics.fill(3, 3, 0);
-		this.menu.displayMenu(MENU_CONFIGS.MAIN_MENU);
+		this.menu.displayMenu(MENU_CONFIGS.MAIN_MENU());
 		await this.menu.prompt(LANGUAGE.enterChoice, this.mainMenuResponse, this);
 	}
 	
@@ -33,6 +33,9 @@ class Game {
 				break;
 			case "2":
 				this.showStats();
+				break;
+			case "3":
+				this.showSettings();
 				break;
 			default:
 				this.mainMenu();
@@ -69,14 +72,83 @@ class Game {
 		this.resetBoard();
 	}
 	
-	resetBoard() {
+	clearScreen() {
+		console.log(ANSI.RESET);
 		console.log(ANSI.CLEAR_SCREEN);
+	}
+	
+	resetBoard() {
+		this.clearScreen();
 		console.log(this.graphics.toString());
+	}
+	
+	showSettings() {
+		this.showMenu(MENU_CONFIGS.SETTINGS(), this.#settingsChoiceProcessor);
 	}
 	
 	async showStats() {
 		console.log(LANGUAGE.showStats);
 		await this.menu.prompt(LANGUAGE.pressEnterToContinue, this.mainMenu, this);
+	}
+	
+	async #settingsChoiceProcessor(answer) {
+		switch(answer) {
+			case "0":
+				await this.mainMenu();
+				break;
+			case "1":
+				this.showLanguageSettings();
+				break;
+			default:
+				this.showSettings();
+		}
+	}
+	
+	showLanguageSettings() {
+		this.showMenu(MENU_CONFIGS.SETTINGS_LANGUAGE(), this.#languageSettingsChoiceProcessor);
+	}
+	// [LANGUAGE.exit, LANGUAGE.english, LANGUAGE.norwegian, LANGUAGE.hawaiian, LANGUAGE.german, LANGUAGE.french, LANGUAGE.spanish, LANGUAGE.russian]
+	#languageSettingsChoiceProcessor(answer) {
+		let code = undefined;
+		switch(answer) {
+			case "0":
+				this.showSettings();
+				break;
+			case "1":
+				code="en";
+				break;
+			case "2":
+				code="no";
+				break;
+			case "3":
+				code="hi";
+				break;
+			case "4":
+				code="de";
+				break;
+			case "5":
+				code="fr";
+				break;
+			case "6":
+				code="es";
+				break;
+			case "7":
+				code="ru";
+				break;
+			default:
+				this.showLanguageSettings();
+				break;
+		}
+		if(code!==undefined) {
+			LANGUAGE.languageCode=code;
+			this.showLanguageSettings();
+		}
+	}
+	
+	async showMenu(menuItem, callBackFunction) {
+		this.clearScreen();
+		console.log(menuItem.toString());
+		await this.menu.prompt(LANGUAGE.enterChoice, callBackFunction, this);
 	}
 	
 	static withinRange(value, min, max) {
