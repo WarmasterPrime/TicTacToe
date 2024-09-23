@@ -68,7 +68,7 @@ class Matrix extends Array {
 		let antiSum = 0;
 		const len = this.length;
 		for(let i=0;i<len;i++) {
-		 mainSum += this[i][i];
+			mainSum += this[i][i];
 			antiSum += this[i][len - i - 1];
 		}
 		return [ mainSum, antiSum ];
