@@ -26,12 +26,19 @@ class MenuItem {
 				maxWidth=line.length;
 			}
 		}
+		maxWidth+=4;
 		
 		if(MenuItem.isOdd(maxWidth)) {
 			maxWidth++;
 		}
-		
 		let numberOfSpacesToCenterTitle = MenuItem.calculateSpacing(this.title, maxWidth);
+		/*
+		let calculatedTitleSize = (numberOfSpacesToCenterTitle * 2) + this.title.length;
+		if(maxWidth-2<calculatedTitleSize) {
+			maxWidth=calculatedTitleSize;
+		}
+		*/
+		
 		if(MenuItem.isOdd(numberOfSpacesToCenterTitle)) {
 			let regexResult = REGEX_PATTERNS.WORD_SPACE_SEPARATION.exec(this.title);
 			if(regexResult) {
